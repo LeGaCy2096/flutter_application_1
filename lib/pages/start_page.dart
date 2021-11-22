@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/crypto_list.dart';
 
-class StartPage extends StatelessWidget {
-  const StartPage({Key? key}) : super(key: key);
+class StartPage extends StatefulWidget {
+  StartPage({Key? key}) : super(key: key);
+
+  @override
+  State<StartPage> createState() => _StartPageState();
+}
+
+class _StartPageState extends State<StartPage> {
+  PageController controller = PageController(
+    initialPage: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -19,46 +29,9 @@ class StartPage extends StatelessWidget {
               end: Alignment.bottomCenter,
             ),
           ),
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 20,
-                  left: 15,
-                  right: 15,
-                ),
-                color: Color.fromRGBO(25, 27, 31, 1),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text('Swap'),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text('Charts'),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text('News'),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  children: const [
-                    Image(image: AssetImage('assets/image3.png')),
-                    Image(image: AssetImage('assets/image3.png')),
-                    Image(image: AssetImage('assets/image3.png')),
-                  ],
-                ),
-              ),
-              Text('Top Tokens'),
-            ],
+          child: PageView(
+            controller: controller,
+            children: [CryptoList()],
           ),
         ),
       ),

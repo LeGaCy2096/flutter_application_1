@@ -1,7 +1,6 @@
-import 'dart:collection';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/currency_item.dart';
 
 class CryptoList extends StatelessWidget {
   var bitcoin = {
@@ -25,7 +24,7 @@ class CryptoList extends StatelessWidget {
 
   List currencies = [];
 
-  CryptoList() {
+  CryptoList({Key? key}) : super(key: key) {
     for (int i = 1; i <= 3; i++) {
       currencies.add(bitcoin);
       currencies.add(etherium);
@@ -67,6 +66,15 @@ class CryptoList extends StatelessWidget {
           ),
         ),
         const Padding(padding: EdgeInsets.only(top: 30)),
+        Expanded(
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int index) {
+              return CurrencyItem(currencies[index]);
+            },
+            itemCount: currencies.length,
+          ),
+        )
       ],
     );
   }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/crypto_list.dart';
+import 'package:flutter_application_1/pages/start_page/chart_page/chart.dart';
+import 'package:flutter_application_1/pages/start_page/header.dart';
 
 class StartPage extends StatefulWidget {
-  StartPage({Key? key}) : super(key: key);
+  const StartPage({Key? key}) : super(key: key);
 
   @override
   State<StartPage> createState() => _StartPageState();
@@ -19,6 +20,7 @@ class _StartPageState extends State<StartPage> {
       backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Container(
+          width: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -29,9 +31,18 @@ class _StartPageState extends State<StartPage> {
               end: Alignment.bottomCenter,
             ),
           ),
-          child: PageView(
-            controller: controller,
-            children: [CryptoList()],
+          child: Column(
+            children: [
+              const Header(),
+              Expanded(
+                child: PageView(
+                  controller: controller,
+                  children: [
+                    Charts(),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),

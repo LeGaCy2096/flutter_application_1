@@ -10,39 +10,55 @@ class CurrencyItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: const Color.fromARGB(255, 27, 29, 33),
-        child: Column(
-          children: [
-            const Padding(padding: EdgeInsets.all(5)),
-            Row(
-              children: [
-                const Padding(padding: EdgeInsets.all(5)),
-                Column(
-                  children: [
-                    Image(
-                      image: currency.icon,
-                      width: 32,
-                      height: 32,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(currency.shortName),
-                    Text(currency.name),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(currency.price.toString()),
-                    Text(currency.trend.toString()),
-                  ],
-                ),
-                const Padding(padding: EdgeInsets.all(5)),
-              ],
-            ),
-            const Padding(padding: EdgeInsets.all(5)),
-          ],
-        ));
+      color: const Color.fromARGB(255, 27, 29, 33),
+      child: Column(
+        children: [
+          const Padding(padding: EdgeInsets.only(top: 10)),
+          Row(
+            children: [
+              const Padding(padding: EdgeInsets.only(left: 10)),
+              Image(
+                image: currency.icon,
+              ),
+              const Padding(padding: EdgeInsets.only(left: 10)),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        currency.shortName,
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 245, 245, 245),
+                        ),
+                      ),
+                      Text(
+                        '${String.fromCharCode(0x0024)}${currency.price.toString()}',
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 245, 245, 245),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(currency.name),
+                      Text(
+                        currency.trend.toString(),
+                      ),
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
+          const Padding(padding: EdgeInsets.only(top: 10)),
+          Container(
+            height: 3,
+            color: const Color.fromARGB(255, 29, 31, 36),
+          ),
+        ],
+      ),
+    );
   }
 }

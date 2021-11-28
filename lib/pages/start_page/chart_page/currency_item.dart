@@ -22,9 +22,9 @@ class CurrencyItem extends StatelessWidget {
               ),
               const Padding(padding: EdgeInsets.only(left: 10)),
               Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         currency.shortName,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/start_page/chart_page/chart.dart';
 import 'package:flutter_application_1/pages/start_page/header.dart';
+import 'package:flutter_application_1/pages/start_page/swap_page/swap.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class StartPage extends StatefulWidget {
 
 class _StartPageState extends State<StartPage> {
   PageController controller = PageController(
-    initialPage: 0,
+    initialPage: 1,
   );
 
   @override
@@ -27,7 +28,7 @@ class _StartPageState extends State<StartPage> {
                 Color.fromRGBO(31, 35, 37, 1),
                 Color.fromRGBO(31, 31, 36, 1)
               ],
-              begin: Alignment(0, 0.8),
+              begin: Alignment(0, 0.2),
               end: Alignment.bottomCenter,
             ),
           ),
@@ -38,6 +39,7 @@ class _StartPageState extends State<StartPage> {
                 child: PageView(
                   controller: controller,
                   children: [
+                    const Swap(),
                     Charts(),
                   ],
                 ),

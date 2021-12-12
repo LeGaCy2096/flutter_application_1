@@ -39,7 +39,7 @@ class _StartPageState extends State<StartPage> {
                 child: PageView(
                   controller: controller,
                   children: [
-                    const Swap(),
+                    Swap(),
                     Charts(),
                   ],
                 ),

@@ -41,7 +41,7 @@ class CurrencyItem extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${String.fromCharCode(0x0024)}${currency.price.toString()}',
+                          '\$${currency.price.toString()}',
                           style: const TextStyle(
                             color: Color.fromARGB(255, 245, 245, 245),
                           ),

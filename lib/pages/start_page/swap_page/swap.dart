@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/crypto_currency.dart';
-import 'package:flutter_application_1/data/currency_list.dart';
+import 'package:flutter_application_1/pages/start_page/swap_page/custom_drop_down.dart';
 
 class Swap extends StatefulWidget {
-  const Swap({Key? key}) : super(key: key);
+  final List<CryptoCurrency> dropDownList = [];
+
+  Swap({Key? key, required List<CryptoCurrency> currencyList})
+      : super(key: key) {
+    dropDownList.addAll(currencyList.toSet());
+  }
 
   @override
   State<Swap> createState() => _SwapState();
@@ -12,14 +17,7 @@ class Swap extends StatefulWidget {
 
 class _SwapState extends State<Swap> {
   final double textContainerHeight = 40;
-  final List<CryptoCurrency> dropDownList = [];
-  String? _chosenValue = 'BTC';
-
-  _SwapState() {
-    // список используется для выпадающего списка, а в нем должнры быть только уникальные елементы
-    dropDownList.addAll(CurrencyList().currencyList.toSet());
-    _chosenValue = dropDownList.first.shortName;
-  }
+  String? _chosenValue;
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +133,7 @@ class _SwapState extends State<Swap> {
         padding: const EdgeInsets.all(5.0),
         child: Row(
           children: [
-            Flexible(
+            const Flexible(
               child: TextField(
                 decoration: InputDecoration.collapsed(
                   hintText: '0.0',
@@ -149,51 +147,8 @@ class _SwapState extends State<Swap> {
                 ),
               ),
             ),
-            Container(
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 107, 118, 132),
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              child: DropdownButtonHideUnderline(
-                child: ButtonTheme(
-                  alignedDropdown: true,
-                  child: DropdownButton(
-                    value: _chosenValue,
-                    icon: const Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.white70,
-                    ),
-                    borderRadius: BorderRadius.circular(20),
-                    style: const TextStyle(
-                      color: Colors.white70,
-                    ),
-                    dropdownColor: const Color.fromARGB(255, 107, 118, 132),
-                    items: dropDownList.map((CryptoCurrency e) {
-                      return DropdownMenuItem(
-                        child: Row(
-                          children: [
-                            Image(
-                              // найти иконку нужного размера и заменить магические числа
-                              width: 20,
-                              height: 20,
-                              image: e.icon,
-                            ),
-                            const Padding(padding: EdgeInsets.only(left: 5)),
-                            Text(e.shortName),
-                          ],
-                        ),
-                        value: e.shortName,
-                      );
-                    }).toList(),
-                    hint: const Text('Select Token'),
-                    onChanged: (String? value) {
-                      setState(() {
-                        _chosenValue = value;
-                      });
-                    },
-                  ),
-                ),
-              ),
+            CustomDropDown(
+              dropDownList: widget.dropDownList,
             )
           ],
         ),

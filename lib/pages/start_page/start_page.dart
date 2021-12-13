@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/data/crypto_currency.dart';
+import 'package:flutter_application_1/data/currency_list.dart';
 import 'package:flutter_application_1/pages/start_page/chart_page/chart.dart';
 import 'package:flutter_application_1/pages/start_page/header.dart';
 import 'package:flutter_application_1/pages/start_page/swap_page/swap.dart';
 
 class StartPage extends StatefulWidget {
-  const StartPage({Key? key}) : super(key: key);
+  final List<CryptoCurrency> currencyList = [];
+
+  StartPage({Key? key}) : super(key: key) {
+    currencyList.addAll(CurrencyList().currencyList);
+  }
 
   @override
   State<StartPage> createState() => _StartPageState();
@@ -39,8 +45,8 @@ class _StartPageState extends State<StartPage> {
                 child: PageView(
                   controller: controller,
                   children: [
-                    Swap(),
-                    Charts(),
+                    Swap(currencyList: widget.currencyList),
+                    Charts(currencyList: widget.currencyList),
                   ],
                 ),
               )

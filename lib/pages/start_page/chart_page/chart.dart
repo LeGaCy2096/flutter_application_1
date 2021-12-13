@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/crypto_currency.dart';
-import 'package:flutter_application_1/data/currency_list.dart';
 import 'package:flutter_application_1/pages/start_page/chart_page/currency_item.dart';
 
 class Charts extends StatelessWidget {
-  final List<CryptoCurrency> currencyList = [];
+  final List<CryptoCurrency> currencyList;
 
-  Charts({Key? key}) : super(key: key) {
-    currencyList.addAll(CurrencyList().currencyList);
-  }
+  const Charts({Key? key, required this.currencyList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

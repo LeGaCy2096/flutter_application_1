@@ -2,7 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-  const Header({Key? key}) : super(key: key);
+  final PageController? pageController;
+  final int? pageIndex;
+
+  const Header(
+      {Key? key, required this.pageController, required this.pageIndex})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,29 +22,33 @@ class Header extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Padding(padding: EdgeInsets.all(3)),
-              TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Swap',
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Charts',
-                  style: TextStyle(color: Colors.white),
-                ),
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        const Color.fromARGB(255, 33, 36, 41))),
-              ),
+              getPageButton('Swap', 0),
+              getPageButton('Charts', 1),
               const Padding(padding: EdgeInsets.all(3)),
             ],
           ),
         ),
         const Padding(padding: EdgeInsets.only(top: 30)),
       ],
+    );
+  }
+
+  Widget getPageButton(String buttonText, int index) {
+    return TextButton(
+      onPressed: () {
+        pageController?.jumpToPage(index);
+      },
+      child: Text(
+        buttonText,
+        style: pageIndex == index
+            ? const TextStyle(color: Colors.white)
+            : const TextStyle(color: Colors.grey),
+      ),
+      style: pageIndex == index
+          ? ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                  const Color.fromARGB(255, 33, 36, 41)))
+          : const ButtonStyle(),
     );
   }
 }

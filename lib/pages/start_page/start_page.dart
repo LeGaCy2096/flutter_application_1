@@ -7,9 +7,15 @@ import 'package:flutter_application_1/pages/start_page/swap_page/swap.dart';
 
 class StartPage extends StatefulWidget {
   final List<CryptoCurrency> currencyList = [];
+  int? currentPage;
+  PageController? controller;
 
   StartPage({Key? key}) : super(key: key) {
     currencyList.addAll(CurrencyList().currencyList);
+    controller = PageController(
+      keepPage: true,
+      initialPage: 1,
+    );
   }
 
   @override
@@ -17,10 +23,6 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  PageController controller = PageController(
-    initialPage: 1,
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,14 +42,22 @@ class _StartPageState extends State<StartPage> {
           ),
           child: Column(
             children: [
-              const Header(),
+              Header(
+                pageController: widget.controller,
+                pageIndex: widget.currentPage,
+              ),
               Expanded(
                 child: PageView(
-                  controller: controller,
+                  controller: widget.controller,
                   children: [
                     Swap(currencyList: widget.currencyList),
                     Charts(currencyList: widget.currencyList),
                   ],
+                  onPageChanged: (pageIndex) {
+                    setState(() {
+                      widget.currentPage = pageIndex;
+                    });
+                  },
                 ),
               )
             ],

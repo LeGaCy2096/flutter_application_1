@@ -7,7 +7,7 @@ import 'package:flutter_application_1/pages/start_page/swap_page/swap.dart';
 
 class StartPage extends StatefulWidget {
   final List<CryptoCurrency> currencyList = [];
-  int? currentPage;
+  int? currentPage = 1;
   PageController? controller;
 
   StartPage({Key? key}) : super(key: key) {

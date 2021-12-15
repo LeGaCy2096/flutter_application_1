@@ -17,7 +17,6 @@ class Swap extends StatefulWidget {
 
 class _SwapState extends State<Swap> {
   final double textContainerHeight = 40;
-  String? _chosenValue;
 
   @override
   Widget build(BuildContext context) {

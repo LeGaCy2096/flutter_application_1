@@ -6,23 +6,39 @@ import 'package:flutter_application_1/pages/start_page/header.dart';
 import 'package:flutter_application_1/pages/start_page/swap_page/swap.dart';
 
 class StartPage extends StatefulWidget {
-  final List<CryptoCurrency> currencyList = [];
-  int? currentPage = 1;
-  PageController? controller;
-
-  StartPage({Key? key}) : super(key: key) {
-    currencyList.addAll(CurrencyList().currencyList);
-    controller = PageController(
-      keepPage: true,
-      initialPage: 1,
-    );
-  }
+  const StartPage({Key? key}) : super(key: key);
 
   @override
   State<StartPage> createState() => _StartPageState();
 }
 
 class _StartPageState extends State<StartPage> {
+  int? currentPageIndex = 1;
+  PageController? pageController;
+  final List<CryptoCurrency> currencyList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController(
+      keepPage: true,
+      initialPage: 1,
+    );
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        currencyList.addAll(CurrencyList().currencyList);
+        setState(() {});
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    pageController?.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,19 +59,19 @@ class _StartPageState extends State<StartPage> {
           child: Column(
             children: [
               Header(
-                pageController: widget.controller,
-                pageIndex: widget.currentPage,
+                pageController: pageController,
+                pageIndex: currentPageIndex,
               ),
               Expanded(
                 child: PageView(
-                  controller: widget.controller,
+                  controller: pageController,
                   children: [
-                    Swap(currencyList: widget.currencyList),
-                    Charts(currencyList: widget.currencyList),
+                    Swap(currencyList: currencyList),
+                    Charts(currencyList: currencyList),
                   ],
                   onPageChanged: (pageIndex) {
                     setState(() {
-                      widget.currentPage = pageIndex;
+                      currentPageIndex = pageIndex;
                     });
                   },
                 ),

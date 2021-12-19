@@ -10,23 +10,27 @@ class Charts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(
-        left: 15,
-        right: 15,
-      ),
-      child: ListView.builder(
-        addRepaintBoundaries: false,
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) {
-          return CurrencyItem(
-            currency: currencyList[index],
-            index: index,
-            lastIndex: currencyList.length - 1,
+    return currencyList.isEmpty
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : Container(
+            padding: const EdgeInsets.only(
+              left: 15,
+              right: 15,
+            ),
+            child: ListView.builder(
+              addRepaintBoundaries: false,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return CurrencyItem(
+                  currency: currencyList[index],
+                  index: index,
+                  lastIndex: currencyList.length - 1,
+                );
+              },
+              itemCount: currencyList.length,
+            ),
           );
-        },
-        itemCount: currencyList.length,
-      ),
-    );
   }
 }

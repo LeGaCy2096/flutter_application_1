@@ -11,25 +11,22 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Padding(padding: EdgeInsets.only(top: 30)),
-        Container(
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              color: Color.fromARGB(255, 25, 27, 31)),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Padding(padding: EdgeInsets.all(3)),
-              getPageButton('Swap', 0),
-              getPageButton('Charts', 1),
-              const Padding(padding: EdgeInsets.all(3)),
-            ],
-          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 30),
+      child: Container(
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            color: Color.fromARGB(255, 25, 27, 31)),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Padding(padding: EdgeInsets.all(3)),
+            getPageButton('Swap', 0),
+            getPageButton('Charts', 1),
+            const Padding(padding: EdgeInsets.all(3)),
+          ],
         ),
-        const Padding(padding: EdgeInsets.only(top: 30)),
-      ],
+      ),
     );
   }
 

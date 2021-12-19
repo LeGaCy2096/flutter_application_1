@@ -3,21 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/crypto_currency.dart';
 
 class CustomDropDown extends StatefulWidget {
-  String? _chosenValue;
   final List<CryptoCurrency> dropDownList;
 
-  CustomDropDown({Key? key, required this.dropDownList}) : super(key: key);
+  const CustomDropDown({Key? key, required this.dropDownList})
+      : super(key: key);
 
   @override
   State<CustomDropDown> createState() => _CustomDropDownState();
 }
 
 class _CustomDropDownState extends State<CustomDropDown> {
+  String? _chosenValue;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: widget._chosenValue == null
+        color: _chosenValue == null
             ? const Color.fromARGB(255, 107, 118, 132)
             : const Color.fromARGB(255, 55, 57, 62),
         borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -26,7 +28,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
         child: ButtonTheme(
           alignedDropdown: true,
           child: DropdownButton(
-            value: widget._chosenValue,
+            value: _chosenValue,
             icon: const Icon(
               Icons.arrow_drop_down,
               color: Colors.white70,
@@ -56,7 +58,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
             hint: const Text('Select Token'),
             onChanged: (String? value) {
               setState(() {
-                widget._chosenValue = value;
+                _chosenValue = value;
               });
             },
           ),

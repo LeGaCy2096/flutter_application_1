@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 class CryptoCurrency {
   final String name;
   final String shortName;
-  final double price;
-  final double trend;
+  double price;
+  double trend;
   final AssetImage icon;
 
-  const CryptoCurrency(
+  CryptoCurrency(
       {required this.name,
       required this.shortName,
       required this.price,

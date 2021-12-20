@@ -31,6 +31,18 @@ class _StartPageState extends State<StartPage> {
         setState(() {});
       },
     );
+    updateCurrencyList().listen((newCurrencyList) {
+      currencyList.clear();
+      currencyList.addAll(newCurrencyList);
+      setState(() {});
+    });
+  }
+
+  Stream<List<CryptoCurrency>> updateCurrencyList() async* {
+    while (true) {
+      await Future.delayed(const Duration(seconds: 10));
+      yield CurrencyList().currencyList;
+    }
   }
 
   @override

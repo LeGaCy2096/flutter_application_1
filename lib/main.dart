@@ -5,8 +5,8 @@ import 'package:flutter_application_1/data/constants.dart' as constants;
 
 void main() => runApp(MaterialApp(
       routes: {
-        constants.routeInitialPage: (context) => const InitialPage(),
-        constants.routeStartPage: (context) => const StartPage(),
+        constants.ROUTE_INITIAL_PAGE: (context) => const InitialPage(),
+        constants.ROUTE_START_PAGE: (context) => const StartPage(),
       },
-      initialRoute: constants.routeInitialPage,
+      initialRoute: constants.ROUTE_INITIAL_PAGE,
     ));

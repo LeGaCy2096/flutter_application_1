@@ -27,7 +27,7 @@ class InitialPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Welcom to the test application',
+                'Welcome to the test application',
                 style: TextStyle(
                   color: Colors.white70,
                   fontSize: 25,
@@ -51,11 +51,11 @@ class InitialPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacementNamed(
                       context,
-                      constants.routeStartPage,
+                      constants.ROUTE_START_PAGE,
                     );
                   },
                   child: const Text(
-                    'Connect Wallet',
+                    'Start',
                     style: TextStyle(color: Colors.white70),
                   ),
                 ),

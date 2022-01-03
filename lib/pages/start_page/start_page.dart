@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/crypto_currency.dart';
-import 'package:flutter_application_1/data/currency_list.dart';
+import 'package:flutter_application_1/data/currency_list_provider.dart';
 import 'package:flutter_application_1/pages/start_page/chart_page/chart.dart';
 import 'package:flutter_application_1/pages/start_page/header.dart';
 import 'package:flutter_application_1/pages/start_page/swap_page/swap.dart';
@@ -16,6 +16,7 @@ class _StartPageState extends State<StartPage> {
   int? currentPageIndex = 1;
   PageController? pageController;
   final List<CryptoCurrency> currencyList = [];
+  final CurrencyListProvider provider = CurrencyListProvider();
 
   @override
   void initState() {
@@ -24,31 +25,25 @@ class _StartPageState extends State<StartPage> {
       keepPage: true,
       initialPage: 1,
     );
-    Future.delayed(
-      const Duration(seconds: 2),
-      () {
-        currencyList.addAll(CurrencyList().currencyList);
-        setState(() {});
-      },
-    );
-    updateCurrencyList().listen((newCurrencyList) {
-      currencyList.clear();
-      currencyList.addAll(newCurrencyList);
+
+    provider.imitateStartAPICall().then((value) {
+      // изменить название переменных
+      currencyList.addAll(provider.currencyList);
       setState(() {});
     });
-  }
 
-  Stream<List<CryptoCurrency>> updateCurrencyList() async* {
-    while (true) {
-      await Future.delayed(const Duration(seconds: 10));
-      yield CurrencyList().currencyList;
-    }
+    //поместить listener в переменную и отменить подписку в dispose
+    provider.updateCurrencyList().listen((event) {});
+    provider.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
     pageController?.dispose();
+    provider.dispose();
   }
 
   @override

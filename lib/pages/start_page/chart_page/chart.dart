@@ -15,9 +15,8 @@ class Charts extends StatelessWidget {
             child: CircularProgressIndicator(),
           )
         : Container(
-            padding: const EdgeInsets.only(
-              left: 15,
-              right: 15,
+            padding: const EdgeInsets.symmetric(
+              vertical: 15,
             ),
             child: ListView.builder(
               addRepaintBoundaries: false,

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/crypto_currency.dart';
 
-class CurrencyItem extends StatelessWidget {
+class CurrencyItem extends StatefulWidget {
   final CryptoCurrency currency;
   final int index;
   final int lastIndex;
@@ -15,6 +15,19 @@ class CurrencyItem extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<CurrencyItem> createState() => _CurrencyItemState();
+}
+
+class _CurrencyItemState extends State<CurrencyItem> {
+  @override
+  void initState() {
+    super.initState();
+    widget.currency.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: getBoxDecoration(),
@@ -25,7 +38,7 @@ class CurrencyItem extends StatelessWidget {
             children: [
               const Padding(padding: EdgeInsets.only(left: 10)),
               Image(
-                image: currency.icon,
+                image: widget.currency.icon,
               ),
               const Padding(padding: EdgeInsets.only(left: 10)),
               Expanded(
@@ -35,13 +48,13 @@ class CurrencyItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          currency.shortName,
+                          widget.currency.shortName,
                           style: const TextStyle(
                             color: Color.fromARGB(255, 245, 245, 245),
                           ),
                         ),
                         Text(
-                          '\$${currency.price.toString()}',
+                          '\$${widget.currency.price.toString()}',
                           style: const TextStyle(
                             color: Color.fromARGB(255, 245, 245, 245),
                           ),
@@ -52,15 +65,15 @@ class CurrencyItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          currency.name,
+                          widget.currency.name,
                           style: const TextStyle(
                             color: Color.fromARGB(255, 72, 76, 88),
                           ),
                         ),
                         Text(
-                          currency.trend.toString() + '%',
+                          widget.currency.trend.toString() + '%',
                           style: TextStyle(
-                            color: currency.trend < 0
+                            color: widget.currency.trend < 0
                                 ? Colors.red[700]
                                 : Colors.lightGreen[900],
                           ),
@@ -86,7 +99,7 @@ class CurrencyItem extends StatelessWidget {
   }
 
   BoxDecoration? getBoxDecoration() {
-    if (index == 0) {
+    if (widget.index == 0) {
       return const BoxDecoration(
         color: Color.fromARGB(255, 27, 29, 33),
         borderRadius: BorderRadius.only(
@@ -94,7 +107,7 @@ class CurrencyItem extends StatelessWidget {
           topRight: Radius.circular(15),
         ),
       );
-    } else if (index == lastIndex) {
+    } else if (widget.index == widget.lastIndex) {
       return const BoxDecoration(
         color: Color.fromARGB(255, 27, 29, 33),
         borderRadius: BorderRadius.only(

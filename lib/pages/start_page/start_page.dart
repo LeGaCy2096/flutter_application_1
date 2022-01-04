@@ -34,16 +34,12 @@ class _StartPageState extends State<StartPage> {
 
     //поместить listener в переменную и отменить подписку в dispose
     provider.updateCurrencyList().listen((event) {});
-    provider.addListener(() {
-      setState(() {});
-    });
   }
 
   @override
   void dispose() {
     super.dispose();
     pageController?.dispose();
-    provider.dispose();
   }
 
   @override

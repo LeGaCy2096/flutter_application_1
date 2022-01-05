@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 
 class CryptoCurrency extends ChangeNotifier {
@@ -9,31 +7,16 @@ class CryptoCurrency extends ChangeNotifier {
   double trend = 0;
   final AssetImage icon;
 
-  CryptoCurrency({
-    required this.name,
-    required this.shortName,
-    required this.icon,
-  }) {
-    price = getRandomPrice();
-    trend = getRandomTrend();
-  }
+  CryptoCurrency(
+      {required this.name,
+      required this.shortName,
+      required this.icon,
+      required this.price,
+      required this.trend});
 
-  void changeCurrencyCost() {
-    price = getRandomPrice();
-    trend = getRandomTrend();
+  void setCurrencyCost(price, trend) {
+    this.price = price;
+    this.trend = trend;
     notifyListeners();
-  }
-
-  double getRandomPrice() {
-    double mainPart = Random().nextInt(100000).toDouble();
-    double decimalPart = Random().nextInt(100).toDouble() / 100;
-    return mainPart + decimalPart;
-  }
-
-  double getRandomTrend() {
-    double mainPart = Random().nextInt(1000).toDouble();
-    double decimalPart = Random().nextInt(100).toDouble() / 100;
-    double price = (mainPart + decimalPart) * (Random().nextBool() ? -1 : 1);
-    return price;
   }
 }

@@ -4,13 +4,13 @@ import 'package:flutter_application_1/data/crypto_currency.dart';
 
 class CurrencyItem extends StatefulWidget {
   final CryptoCurrency currency;
-  final int index;
+  final int currentIndex;
   final int lastIndex;
 
   const CurrencyItem({
     Key? key,
     required this.currency,
-    required this.index,
+    required this.currentIndex,
     required this.lastIndex,
   }) : super(key: key);
 
@@ -33,14 +33,14 @@ class _CurrencyItemState extends State<CurrencyItem> {
       decoration: getBoxDecoration(),
       child: Column(
         children: [
-          const Padding(padding: EdgeInsets.only(top: 10)),
+          const SizedBox(height: 10),
           Row(
             children: [
-              const Padding(padding: EdgeInsets.only(left: 10)),
+              const SizedBox(width: 10),
               Image(
                 image: widget.currency.icon,
               ),
-              const Padding(padding: EdgeInsets.only(left: 10)),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   children: [
@@ -83,7 +83,7 @@ class _CurrencyItemState extends State<CurrencyItem> {
                   ],
                 ),
               ),
-              const Padding(padding: EdgeInsets.only(left: 10)),
+              const SizedBox(width: 10),
             ],
           ),
           Padding(
@@ -99,7 +99,7 @@ class _CurrencyItemState extends State<CurrencyItem> {
   }
 
   BoxDecoration? getBoxDecoration() {
-    if (widget.index == 0) {
+    if (widget.currentIndex == 0) {
       return const BoxDecoration(
         color: Color.fromARGB(255, 27, 29, 33),
         borderRadius: BorderRadius.only(
@@ -107,7 +107,7 @@ class _CurrencyItemState extends State<CurrencyItem> {
           topRight: Radius.circular(15),
         ),
       );
-    } else if (widget.index == widget.lastIndex) {
+    } else if (widget.currentIndex == widget.lastIndex) {
       return const BoxDecoration(
         color: Color.fromARGB(255, 27, 29, 33),
         borderRadius: BorderRadius.only(

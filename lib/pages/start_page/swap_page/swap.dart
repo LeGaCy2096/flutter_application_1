@@ -4,12 +4,11 @@ import 'package:flutter_application_1/data/crypto_currency.dart';
 import 'package:flutter_application_1/pages/start_page/swap_page/custom_drop_down.dart';
 
 class Swap extends StatefulWidget {
-  final List<CryptoCurrency> dropDownList = [];
+  final Set<CryptoCurrency> dropDownElements;
 
-  Swap({Key? key, required List<CryptoCurrency> currencyList})
-      : super(key: key) {
-    dropDownList.addAll(currencyList.toSet());
-  }
+  // сюда лучше передать сразу список для dropdown, но тогда будет коряво выглядеть
+  // при вызове констуктора
+  const Swap({Key? key, required this.dropDownElements}) : super(key: key);
 
   @override
   State<Swap> createState() => _SwapState();
@@ -27,7 +26,7 @@ class _SwapState extends State<Swap> {
           child: Column(
             children: [
               getExchangeBox(context),
-              const Padding(padding: EdgeInsets.all(10)),
+              const SizedBox(height: 20),
               const SizedBox(
                 width: double.infinity,
                 child: Text(
@@ -39,7 +38,7 @@ class _SwapState extends State<Swap> {
                   ),
                 ),
               ),
-              const Padding(padding: EdgeInsets.all(5)),
+              const SizedBox(height: 10),
               Container(
                 width: double.infinity,
                 height: 200,
@@ -58,7 +57,7 @@ class _SwapState extends State<Swap> {
                     'Check out our v2 update for new looks and new way to trade easily',
                     const Color.fromARGB(255, 179, 184, 207)),
               ),
-              const Padding(padding: EdgeInsets.all(5)),
+              const SizedBox(height: 10),
               Container(
                 width: double.infinity,
                 height: 200,
@@ -80,43 +79,41 @@ class _SwapState extends State<Swap> {
   }
 
   Widget getExchangeBox(context) {
-    return SizedBox(
+    return Container(
       width: double.infinity,
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 27, 29, 33),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-        child: Column(
-          children: [
-            getExchangeString(),
-            const Padding(padding: EdgeInsets.all(5)),
-            getExchangeString(),
-            const Padding(padding: EdgeInsets.all(5)),
-            Container(
-              width: double.infinity,
-              height: 30,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 88, 154, 193),
-                    Color.fromARGB(255, 50, 81, 170)
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-              ),
-              child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Connect Wallet',
-                  style: TextStyle(color: Colors.white70),
-                ),
+      padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+      decoration: const BoxDecoration(
+        color: Color.fromARGB(255, 27, 29, 33),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      child: Column(
+        children: [
+          getExchangeString(),
+          const SizedBox(height: 10),
+          getExchangeString(),
+          const SizedBox(height: 10),
+          Container(
+            width: double.infinity,
+            height: 30,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 88, 154, 193),
+                  Color.fromARGB(255, 50, 81, 170)
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
             ),
-          ],
-        ),
+            child: TextButton(
+              onPressed: () {},
+              child: const Text(
+                'Connect Wallet',
+                style: TextStyle(color: Colors.white70),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -147,7 +144,7 @@ class _SwapState extends State<Swap> {
               ),
             ),
             CustomDropDown(
-              dropDownList: widget.dropDownList,
+              dropDownList: widget.dropDownElements,
             )
           ],
         ),
@@ -171,7 +168,7 @@ class _SwapState extends State<Swap> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const Padding(padding: EdgeInsets.only(top: 5)),
+          const SizedBox(height: 5),
           Text(
             description,
             style: TextStyle(

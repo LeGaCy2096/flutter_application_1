@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/crypto_currency.dart';
 
 class CustomDropDown extends StatefulWidget {
-  final List<CryptoCurrency> dropDownList;
+  final Set<CryptoCurrency> dropDownList;
 
   const CustomDropDown({Key? key, required this.dropDownList})
       : super(key: key);

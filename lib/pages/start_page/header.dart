@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-  final PageController? pageController;
-  final int? pageIndex;
+  final PageController pageController;
+  final int pageIndex;
 
   const Header(
       {Key? key, required this.pageController, required this.pageIndex})
@@ -17,14 +17,15 @@ class Header extends StatelessWidget {
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
             color: Color.fromARGB(255, 25, 27, 31)),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Padding(padding: EdgeInsets.all(3)),
-            getPageButton('Swap', 0),
-            getPageButton('Charts', 1),
-            const Padding(padding: EdgeInsets.all(3)),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 6),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              getPageButton('Swap', 0),
+              getPageButton('Charts', 1),
+            ],
+          ),
         ),
       ),
     );
@@ -33,7 +34,7 @@ class Header extends StatelessWidget {
   Widget getPageButton(String buttonText, int index) {
     return TextButton(
       onPressed: () {
-        pageController?.jumpToPage(index);
+        pageController.jumpToPage(index);
       },
       child: Text(
         buttonText,

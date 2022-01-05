@@ -34,7 +34,7 @@ class InitialPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Padding(padding: EdgeInsets.only(top: 10)),
+              const SizedBox(height: 10),
               Container(
                 height: 30,
                 decoration: const BoxDecoration(

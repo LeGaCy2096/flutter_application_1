@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/data/crypto_currency.dart';
 import 'package:flutter_application_1/data/currency_list_provider.dart';
 import 'package:flutter_application_1/pages/start_page/chart_page/chart.dart';
 import 'package:flutter_application_1/pages/start_page/header.dart';
@@ -13,33 +14,35 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  int? currentPageIndex = 1;
-  PageController? pageController;
-  final List<CryptoCurrency> currencyList = [];
+  int currentPageIndex = 1;
+  // pageController лучше проинициализировать здесь или в initState?
+  // надо ли в названии переменной указывать для какого экрана он управляет страницами
+  PageController pageController = PageController(initialPage: 1);
+  // тут мне на ум приходит только название переменной CurrencyListProvider
   final CurrencyListProvider provider = CurrencyListProvider();
+  StreamSubscription? updateCurrenciesListener;
 
   @override
   void initState() {
     super.initState();
-    pageController = PageController(
-      keepPage: true,
+    /*pageController = PageController(
       initialPage: 1,
-    );
+    );*/
 
-    provider.imitateStartAPICall().then((value) {
-      // изменить название переменных
-      currencyList.addAll(provider.currencyList);
+    provider.imitateAPICallDelay().then((value) {
+      provider.fillCurrencyList();
       setState(() {});
     });
 
-    //поместить listener в переменную и отменить подписку в dispose
-    provider.updateCurrencyList().listen((event) {});
+    // есть какие-то правила для наименование listener?
+    updateCurrenciesListener = provider.updateCurrencyList().listen((event) {});
   }
 
   @override
   void dispose() {
     super.dispose();
-    pageController?.dispose();
+    pageController.dispose();
+    updateCurrenciesListener?.cancel();
   }
 
   @override
@@ -61,6 +64,7 @@ class _StartPageState extends State<StartPage> {
           ),
           child: Column(
             children: [
+              // если надо изменить название для контроллера на этой странице, то и в Header тоже надо поменять
               Header(
                 pageController: pageController,
                 pageIndex: currentPageIndex,
@@ -69,8 +73,9 @@ class _StartPageState extends State<StartPage> {
                 child: PageView(
                   controller: pageController,
                   children: [
-                    Swap(currencyList: currencyList),
-                    Charts(currencyList: currencyList),
+                    Swap(dropDownElements: provider.currencyList.toSet()),
+                    // здесь лучше передать provider или список валют?
+                    Charts(currencyList: provider.currencyList),
                   ],
                   onPageChanged: (pageIndex) {
                     setState(() {

@@ -22,9 +22,10 @@ class Charts extends StatelessWidget {
               addRepaintBoundaries: false,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
+                // вместо передачи индексовв возможно лучше передавать булевы значения для условия закругления углов
                 return CurrencyItem(
                   currency: currencyList[index],
-                  index: index,
+                  currentIndex: index,
                   lastIndex: currencyList.length - 1,
                 );
               },

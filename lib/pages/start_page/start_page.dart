@@ -14,35 +14,32 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  int currentPageIndex = 1;
-  // pageController лучше проинициализировать здесь или в initState?
-  // надо ли в названии переменной указывать для какого экрана он управляет страницами
-  PageController pageController = PageController(initialPage: 1);
-  // тут мне на ум приходит только название переменной CurrencyListProvider
-  final CurrencyListProvider provider = CurrencyListProvider();
-  StreamSubscription? updateCurrenciesListener;
+  int _currentPageIndex = 1;
+  PageController? _pageController;
+  final CurrencyListProvider currencyProvider = CurrencyListProvider();
+  StreamSubscription? _updateCurrenciesListener;
 
   @override
   void initState() {
     super.initState();
-    /*pageController = PageController(
+    _pageController = PageController(
       initialPage: 1,
-    );*/
+    );
 
-    provider.imitateAPICallDelay().then((value) {
-      provider.fillCurrencyList();
+    currencyProvider.fetchInfo().then((value) {
+      currencyProvider.fillCurrencyList();
       setState(() {});
     });
 
-    // есть какие-то правила для наименование listener?
-    updateCurrenciesListener = provider.updateCurrencyList().listen((event) {});
+    _updateCurrenciesListener =
+        currencyProvider.updateCurrencyList().listen((event) {});
   }
 
   @override
   void dispose() {
     super.dispose();
-    pageController.dispose();
-    updateCurrenciesListener?.cancel();
+    _pageController?.dispose();
+    _updateCurrenciesListener?.cancel();
   }
 
   @override
@@ -64,22 +61,22 @@ class _StartPageState extends State<StartPage> {
           ),
           child: Column(
             children: [
-              // если надо изменить название для контроллера на этой странице, то и в Header тоже надо поменять
               Header(
-                pageController: pageController,
-                pageIndex: currentPageIndex,
+                pageController: _pageController,
+                pageIndex: _currentPageIndex,
               ),
               Expanded(
                 child: PageView(
-                  controller: pageController,
+                  controller: _pageController,
                   children: [
-                    Swap(dropDownElements: provider.currencyList.toSet()),
-                    // здесь лучше передать provider или список валют?
-                    Charts(currencyList: provider.currencyList),
+                    Swap(
+                        dropDownElements:
+                            currencyProvider.currencyList.toSet()),
+                    Charts(currencyList: currencyProvider.currencyList),
                   ],
                   onPageChanged: (pageIndex) {
                     setState(() {
-                      currentPageIndex = pageIndex;
+                      _currentPageIndex = pageIndex;
                     });
                   },
                 ),

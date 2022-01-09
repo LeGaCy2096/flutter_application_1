@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-  final PageController pageController;
+  final PageController? pageController;
   final int pageIndex;
 
   const Header(
@@ -34,7 +33,7 @@ class Header extends StatelessWidget {
   Widget getPageButton(String buttonText, int index) {
     return TextButton(
       onPressed: () {
-        pageController.jumpToPage(index);
+        pageController?.jumpToPage(index);
       },
       child: Text(
         buttonText,

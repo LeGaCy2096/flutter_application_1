@@ -6,42 +6,28 @@ import 'crypto_currency.dart';
 class CurrencyListProvider {
   final List<CryptoCurrency> currencyList = [];
 
-  // перенес заполнение списка из конструктора что бы использовать задержу от Future
-  // и не создавать переменную для хранения списка в start_page
   void fillCurrencyList() {
     AssetImage bitcoinIcon = const AssetImage('assets/bitcoin_icon.png');
 
     for (int i = 1; i <= 3; i++) {
       CryptoCurrency bitcoin = CryptoCurrency(
-        name: 'Bitcoin',
-        shortName: 'BTC',
-        icon: bitcoinIcon,
-        price: getRandomPrice(),
-        trend: getRandomTrend(),
-      );
+          getRandomPrice(), getRandomTrend(),
+          name: 'Bitcoin', shortName: 'BTC', icon: bitcoinIcon);
       currencyList.add(bitcoin);
 
       CryptoCurrency etherium = CryptoCurrency(
-        name: 'Etherium',
-        shortName: 'ETH',
-        icon: bitcoinIcon,
-        price: getRandomPrice(),
-        trend: getRandomTrend(),
-      );
+          getRandomPrice(), getRandomTrend(),
+          name: 'Etherium', shortName: 'ETH', icon: bitcoinIcon);
       currencyList.add(etherium);
 
       CryptoCurrency binance = CryptoCurrency(
-        name: 'Binance',
-        shortName: 'BNB',
-        icon: bitcoinIcon,
-        price: getRandomPrice(),
-        trend: getRandomTrend(),
-      );
+          getRandomPrice(), getRandomTrend(),
+          name: 'Binance', shortName: 'BNB', icon: bitcoinIcon);
       currencyList.add(binance);
     }
   }
 
-  Future imitateAPICallDelay() {
+  Future fetchInfo() {
     return Future.delayed(
       const Duration(seconds: 2),
     );

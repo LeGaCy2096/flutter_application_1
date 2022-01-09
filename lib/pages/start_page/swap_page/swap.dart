@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/crypto_currency.dart';
 import 'package:flutter_application_1/pages/start_page/swap_page/custom_drop_down.dart';
@@ -6,8 +5,6 @@ import 'package:flutter_application_1/pages/start_page/swap_page/custom_drop_dow
 class Swap extends StatefulWidget {
   final Set<CryptoCurrency> dropDownElements;
 
-  // сюда лучше передать сразу список для dropdown, но тогда будет коряво выглядеть
-  // при вызове констуктора
   const Swap({Key? key, required this.dropDownElements}) : super(key: key);
 
   @override

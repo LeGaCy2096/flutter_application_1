@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/crypto_currency.dart';
 
@@ -38,21 +37,20 @@ class _CustomDropDownState extends State<CustomDropDown> {
               color: Colors.white70,
             ),
             dropdownColor: const Color.fromARGB(255, 107, 118, 132),
-            items: widget.dropDownList.map((CryptoCurrency e) {
+            items: widget.dropDownList.map((CryptoCurrency currency) {
               return DropdownMenuItem(
                 child: Row(
                   children: [
                     Image(
-                      // найти иконку нужного размера и заменить магические числа
                       width: 20,
                       height: 20,
-                      image: e.icon,
+                      image: currency.icon,
                     ),
                     const Padding(padding: EdgeInsets.only(left: 5)),
-                    Text(e.shortName),
+                    Text(currency.shortName),
                   ],
                 ),
-                value: e.shortName,
+                value: currency.shortName,
               );
             }).toList(),
             hint: const Text('Select Token'),

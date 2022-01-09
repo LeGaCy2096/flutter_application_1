@@ -3,20 +3,22 @@ import 'package:flutter/cupertino.dart';
 class CryptoCurrency extends ChangeNotifier {
   final String name;
   final String shortName;
-  double price = 0;
-  double trend = 0;
+  double _price = 0;
+  double _trend = 0;
   final AssetImage icon;
 
-  CryptoCurrency(
-      {required this.name,
-      required this.shortName,
-      required this.icon,
-      required this.price,
-      required this.trend});
+  CryptoCurrency(double price, double trend,
+      {required this.name, required this.shortName, required this.icon}) {
+    _price = price;
+    _trend = trend;
+  }
 
   void setCurrencyCost(price, trend) {
-    this.price = price;
-    this.trend = trend;
+    _price = price;
+    _trend = trend;
     notifyListeners();
   }
+
+  double get price => _price;
+  double get trend => _trend;
 }

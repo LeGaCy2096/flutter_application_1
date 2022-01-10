@@ -14,15 +14,17 @@ class _CurrencyItemState extends State<CurrencyItem> {
   @override
   void initState() {
     super.initState();
-    widget.currency.addListener(() {
-      setState(() {});
-    });
+    widget.currency.addListener(updateCurrencyItem);
   }
 
   @override
   void dispose() {
+    widget.currency.removeListener(updateCurrencyItem);
     super.dispose();
-    widget.currency.dispose();
+  }
+
+  void updateCurrencyItem() {
+    setState(() {});
   }
 
   @override
